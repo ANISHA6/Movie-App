@@ -1,3 +1,7 @@
+# Movie-Web-App
+#### Tech stack: React 
+
+-  [API-LINK](https://omdbapi.com/) - OMDb API
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
