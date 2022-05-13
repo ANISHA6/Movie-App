@@ -2,7 +2,9 @@ import { combineReducers } from "redux";
 import { ADD_MOVIES, 
     ADD_To_FAVOURITES ,
      REMOVE_FROM_FAVOURITES, 
-     SET_SHOW_FAVOURITES} 
+     SET_SHOW_FAVOURITES,
+    ADD_MOVIE_TO_LIST,
+ADD_SEARCH_RESULT} 
      from "../actions";
 
 const initialMoviesState={
@@ -44,6 +46,11 @@ export function movies(state=initialMoviesState, action){
                             ...state,
                             showFavourites: action.val
                         }
+                        case ADD_MOVIE_TO_LIST:
+                            return {
+                                ...state,
+                                list: [action.movie, ...state.list]
+                            };
                 default:
                     return state;
     }
@@ -52,19 +59,36 @@ export function movies(state=initialMoviesState, action){
 //move this variable to the action file
 
 const initialSearchState={
-    result: {}
+    result: {},
+    showSearchResults:false,
 }
 
 export function search (state=initialSearchState, action){
-    console.log('SEARCH REDUCER');
+//    ADD_SEARCH_RESULT
+   switch(action.type){
+       case ADD_SEARCH_RESULT:
+           return{
+               ...state,
+               result: action.movie,
+               showSearchResults:true,
 
-    return state;
+           }
+           case ADD_MOVIE_TO_LIST:
+                            return {
+                                ...state,
+                                showSearchResults:false
+
+                            };
+   
+            default:
+                return state;
+}
 }
 
-const initialRootState={
-    movies: initialMoviesState,
-    search: initialSearchState
-}
+// const initialRootState={
+//     movies: initialMoviesState,
+//     search: initialSearchState
+// }
 // export default function rootReducer (state=initialRootState, action){
 //     return{
 //         movies: movies(state.movies, action),
@@ -74,5 +98,6 @@ const initialRootState={
 
 export default combineReducers({
     movies,
-    search
+    search,
+
 })
